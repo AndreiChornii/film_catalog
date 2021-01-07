@@ -38,6 +38,38 @@ class CatalogService implements CatalogServiceInterface
     }
 
     /**
+     * Get list of films
+     * @return array|null
+     */
+    public function searchAll(): ?array
+    {
+        // TODO: Implement searchAll() method.
+        $result = $this->movieCatalogRepository->findAllFilmsInCatalog();
+//        dd($result);
+        if(!$result)
+        {
+            return NULL;
+        }
+        $rez_arr_dto = [];
+        for($i=0; $i<count($result); $i++)
+        {
+            $rez_arr_dto[$i] = $result[$i]->toDto();
+        }
+//        dd($rez_arr_dto);
+        return $rez_arr_dto;
+    }
+
+    /**
+     * Remove film from catalog
+     * @param string $title
+     * @return mixed|void
+     */
+    public function deleteFromCatalog(string $title)
+    {
+
+    }
+
+    /**
      * Add film to catalog
      * @param MovieDto $movieDto
      * @return mixed

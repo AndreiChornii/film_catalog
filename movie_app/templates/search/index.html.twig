@@ -9,10 +9,19 @@
     </style>
 
     <div class="example-wrapper">
-{#        {% for concrete_result in result %}#}
-        <p>{{ result.title }}</p>
-        <p>{{ result.year }}</p>
-        <img src="{{ result.poster }}"/>
-        <p>{{ result.plot }}</p>
+        {% if result|length > 1 %}
+            {% for concrete_result in result %}
+                <p>{{ concrete_result.title }}</p>
+                <p>{{ concrete_result.year }}</p>
+                <img src="{{ concrete_result.poster }}"/>
+                <p>{{ concrete_result.plot }}</p>
+            {% endfor %}
+        {% else %}
+            <p>{{ result.title }}</p>
+            <p>{{ result.year }}</p>
+            <img src="{{ result.poster }}"/>
+            <p>{{ result.plot }}</p>
+        {% endif %}
+
     </div>
 {% endblock %}

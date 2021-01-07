@@ -6,11 +6,11 @@ use App\Dto\MovieDto;
 use App\Entity\MovieCatalog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Object_;
 
 /**
  * @method MovieCatalog|null find($id, $lockMode = null, $lockVersion = null)
  * @method MovieCatalog|null findOneBy(array $criteria, array $orderBy = null)
- * @method MovieCatalog[]    findAll()
  * @method MovieCatalog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class MovieCatalogRepository extends ServiceEntityRepository
@@ -27,6 +27,13 @@ class MovieCatalogRepository extends ServiceEntityRepository
             ->setParameter('title', '%' . $title . '%')
             ->getQuery();
         return $query->getOneOrNullResult();
+    }
+
+    public function findAllFilmsInCatalog(): ?array
+    {
+        $qb = $this->createQueryBuilder('m');
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
 
     public function save(MovieDto $movieDto){

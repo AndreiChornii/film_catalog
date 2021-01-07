@@ -21,4 +21,17 @@ interface CatalogServiceInterface
      * @return mixed
      */
     public function  add(MovieDto $movieDto);
+
+    /**
+     * Get list of films
+     * @return array
+     */
+    public function searchAll(): ?array;
+
+    /**
+     * Remove film from catalog
+     * @param string $title
+     * @return mixed
+     */
+    public function deleteFromCatalog(string $title);
 }
