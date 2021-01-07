@@ -1,0 +1,6 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^7.0",
+        "symfony/maker-bundle": "^1.26"
+    }
+}
