@@ -33,5 +33,5 @@ interface CatalogServiceInterface
      * @param string $title
      * @return mixed
      */
-    public function deleteFromCatalog(string $title);
+    public function deleteFromCatalog(string $title): bool;
 }

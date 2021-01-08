@@ -64,9 +64,15 @@ class CatalogService implements CatalogServiceInterface
      * @param string $title
      * @return mixed|void
      */
-    public function deleteFromCatalog(string $title)
+    public function deleteFromCatalog(string $title): bool
     {
-
+        if($this->movieCatalogRepository->deleteFilm($title))
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**

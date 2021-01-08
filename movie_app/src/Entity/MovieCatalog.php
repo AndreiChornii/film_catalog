@@ -208,6 +208,7 @@ class MovieCatalog
         $movieDto->type = $this->type;
         $movieDto->director = $this->director;
         $movieDto->imdbId = $this->imdbId;
+        $movieDto->genre = $this->genre;
         $movieDto->plot = $this->plot;
         $movieDto->poster = $this->poster;
         $movieDto->release = $this->released->format('d M Y') ;

@@ -5,12 +5,14 @@ namespace App\Repository;
 use App\Dto\MovieDto;
 use App\Entity\MovieCatalog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\Types\Object_;
 
 /**
  * @method MovieCatalog|null find($id, $lockMode = null, $lockVersion = null)
  * @method MovieCatalog|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MovieCatalog[]    findAll()
  * @method MovieCatalog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class MovieCatalogRepository extends ServiceEntityRepository
@@ -34,6 +36,31 @@ class MovieCatalogRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('m');
         $query = $qb->getQuery();
         return $query->getResult();
+    }
+
+    public function deleteFilm(string $title): bool
+    {
+
+        $in_catalog_movie = $this->findLikeTitle($title);
+        if(!$in_catalog_movie){
+            return false;
+        }
+        else{
+             //        dd($in_catalog_movie);
+              $qb = $this->getEntityManager()->createQuery('
+              DELETE
+              FROM       App\Entity\MovieCatalog m
+              WHERE      m.id = :id
+            ');
+              $qb->setParameter('id', $in_catalog_movie->getId());
+              $qb->execute();
+    //        dd($in_catalog_movie);
+            return true;
+        }
+
+
+
+
     }
 
     public function save(MovieDto $movieDto){

@@ -17,7 +17,7 @@ class SearchController extends AbstractController
      */
     public function index(CatalogServiceInterface $catalogService): Response
     {
-        $result = $catalogService->search("Pulp Fiction");
+        $result = $catalogService->search("True Romance");
 //        dd($result);
         return $this->render('search/index.html.twig', [
             'result' => $result,
@@ -38,8 +38,16 @@ class SearchController extends AbstractController
         ]);
     }
 
-    public function deletefromcatalog(CatalogServiceInterface $catalogService)
+    /**
+     * @Route("/deletefromcatalog", name="deletefromcatalog")
+     * @param CatalogServiceInterface $catalogService
+     * @return Response
+     */
+    public function deletefromcatalog(CatalogServiceInterface $catalogService): Response
     {
-
+        $result = $catalogService->deleteFromCatalog("A Soldier's Story");
+        return $this->render('search/delete.html.twig', [
+            'result' => $result
+        ]);
     }
 }
