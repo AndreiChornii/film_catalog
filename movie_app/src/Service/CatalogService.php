@@ -3,6 +3,7 @@
 
 namespace App\Service;
 
+use App\Entity\Favorite;
 use App\Dto\MovieDto;
 use App\Repository\FavoriteRepository;
 use App\Repository\MovieCatalogRepository;
@@ -93,6 +94,23 @@ class CatalogService implements CatalogServiceInterface
             $result = $result->toDto();
             $this->favoriteRepository->save($result);
             return 2;
+        }
+        return null;
+    }
+
+    /**
+     * Remove film from favorites
+     * @param string $title
+     * @return int|null
+     */
+    public function deleteFilmFromFavorites(string $title): ?int
+    {
+        $result = $this->favoriteRepository->findLikeTitle($title);
+//        dd($result);
+        if($result)
+        {
+            $this->favoriteRepository->deleteFilm($result);
+            return 3;
         }
         return null;
     }

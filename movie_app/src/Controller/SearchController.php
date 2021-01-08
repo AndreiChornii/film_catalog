@@ -17,7 +17,7 @@ class SearchController extends AbstractController
      */
     public function index(CatalogServiceInterface $catalogService): Response
     {
-        $result = $catalogService->search("True Romance");
+        $result = $catalogService->search("Jackie Brown");
 //        dd($result);
         return $this->render('search/index.html.twig', [
             'result' => $result,
@@ -45,7 +45,7 @@ class SearchController extends AbstractController
      */
     public function deletefromcatalog(CatalogServiceInterface $catalogService): Response
     {
-        $result = $catalogService->deleteFromCatalog("A Soldier's Story");
+        $result = $catalogService->deleteFromCatalog("Jackie Brown");
         return $this->render('search/delete.html.twig', [
             'result' => $result
         ]);
@@ -58,7 +58,20 @@ class SearchController extends AbstractController
      */
     public function addToFavorites(CatalogServiceInterface $catalogService): Response
     {
-        $result = $catalogService->addFilmToFavorites('ggg');
+        $result = $catalogService->addFilmToFavorites('Jackie Brown');
+        return $this->render('search/favorites.html.twig', [
+            'result' => $result
+        ]);
+    }
+
+    /**
+     * @Route("/deletefromfavorites", name="deletefromfavorites")
+     * @param CatalogServiceInterface $catalogService
+     * @return Response
+     */
+    public function deleteFromFavorites(CatalogServiceInterface $catalogService): Response
+    {
+        $result = $catalogService->deleteFilmFromFavorites('Jackie Brown');
         return $this->render('search/favorites.html.twig', [
             'result' => $result
         ]);

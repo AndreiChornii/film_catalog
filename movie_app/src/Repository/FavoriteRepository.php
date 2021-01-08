@@ -59,4 +59,27 @@ class FavoriteRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($movie);
         $this->getEntityManager()->flush();
     }
+
+    public function  findLikeTitle(string $title): ?Favorite
+    {
+        $qb = $this->createQueryBuilder('m');
+        $query = $qb->where($qb->expr()->like('m.title', ':title'))
+            ->setParameter('title', '%' . $title . '%')
+            ->getQuery();
+        return $query->getOneOrNullResult();
+    }
+
+    public function deleteFilm(Favorite $favorite): bool
+    {
+        if(!$favorite)
+        {
+            return false;
+        }
+        else {
+            $em = $this->getEntityManager();
+            $em->remove($favorite);
+            $em->flush();
+            return true;
+        }
+    }
 }
