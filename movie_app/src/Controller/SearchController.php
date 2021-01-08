@@ -50,4 +50,17 @@ class SearchController extends AbstractController
             'result' => $result
         ]);
     }
+
+    /**
+     * @Route("/addtofavorites", name="addtofavorites")
+     * @param CatalogServiceInterface $catalogService
+     * @return Response
+     */
+    public function addToFavorites(CatalogServiceInterface $catalogService): Response
+    {
+        $result = $catalogService->addFilmToFavorites('ggg');
+        return $this->render('search/favorites.html.twig', [
+            'result' => $result
+        ]);
+    }
 }

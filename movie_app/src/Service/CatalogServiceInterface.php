@@ -34,4 +34,11 @@ interface CatalogServiceInterface
      * @return mixed
      */
     public function deleteFromCatalog(string $title): bool;
+
+    /**
+     * Add film to favorites
+     * @param string $title
+     * @return int
+     */
+    public function addFilmToFavorites(string $title): ?int;
 }

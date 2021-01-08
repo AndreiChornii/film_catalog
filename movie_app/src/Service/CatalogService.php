@@ -4,17 +4,20 @@
 namespace App\Service;
 
 use App\Dto\MovieDto;
+use App\Repository\FavoriteRepository;
 use App\Repository\MovieCatalogRepository;
 
 
 class CatalogService implements CatalogServiceInterface
 {
     private $movieCatalogRepository;
+    private $favoriteRepository;
     private $omdbService;
 
-    public function __construct(MovieCatalogRepository $movieCatalogRepository, OmdbServiceInterface $omdbService)
+    public function __construct(MovieCatalogRepository $movieCatalogRepository, FavoriteRepository $favoriteRepository, OmdbServiceInterface $omdbService)
     {
         $this->movieCatalogRepository = $movieCatalogRepository;
+        $this->favoriteRepository = $favoriteRepository;
         $this->omdbService = $omdbService;
     }
 
@@ -73,6 +76,25 @@ class CatalogService implements CatalogServiceInterface
         else{
             return false;
         }
+    }
+
+    /**
+     * Add film to favorites
+     * @param string $title
+     * @return int
+     */
+    public function addFilmToFavorites(string $title): ?int
+    {
+        // TODO: Implement addFilmToFavorites() method.
+        $result = $this->movieCatalogRepository->findLikeTitle($title);
+//        dd($result);
+        if($result)
+        {
+            $result = $result->toDto();
+            $this->favoriteRepository->save($result);
+            return 2;
+        }
+        return null;
     }
 
     /**
